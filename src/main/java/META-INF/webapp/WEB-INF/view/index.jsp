@@ -1,5 +1,5 @@
 <html>
   <body>
-    <p>Hi!</p>
+    <p>Hi <%="me"%>!</p>
   </body>
 </html>

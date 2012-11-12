@@ -1,36 +1,18 @@
 package com.sjl;
 
-import java.io.File;
-import java.io.IOException;
-import java.net.URL;
-import java.net.URLClassLoader;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.io.*;
+import java.net.*;
+import java.util.*;
 
-import javax.servlet.ServletContainerInitializer;
+import javax.servlet.*;
 
-import org.eclipse.jetty.annotations.AnnotationConfiguration;
-import org.eclipse.jetty.annotations.AnnotationDecorator;
-import org.eclipse.jetty.annotations.AnnotationParser;
-import org.eclipse.jetty.annotations.ClassNameResolver;
-import org.eclipse.jetty.annotations.WebFilterAnnotationHandler;
-import org.eclipse.jetty.annotations.WebListenerAnnotationHandler;
-import org.eclipse.jetty.annotations.WebServletAnnotationHandler;
-import org.eclipse.jetty.server.Handler;
-import org.eclipse.jetty.server.NCSARequestLog;
-import org.eclipse.jetty.server.RequestLog;
-import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.server.handler.HandlerCollection;
-import org.eclipse.jetty.server.handler.HandlerList;
-import org.eclipse.jetty.server.handler.RequestLogHandler;
-import org.eclipse.jetty.server.nio.SelectChannelConnector;
-import org.eclipse.jetty.util.resource.Resource;
-import org.eclipse.jetty.util.thread.QueuedThreadPool;
-import org.eclipse.jetty.util.thread.ThreadPool;
-import org.eclipse.jetty.webapp.Configuration;
-import org.eclipse.jetty.webapp.DiscoveredAnnotation;
-import org.eclipse.jetty.webapp.WebAppContext;
+import org.eclipse.jetty.annotations.*;
+import org.eclipse.jetty.server.*;
+import org.eclipse.jetty.server.handler.*;
+import org.eclipse.jetty.server.nio.*;
+import org.eclipse.jetty.util.resource.*;
+import org.eclipse.jetty.util.thread.*;
+import org.eclipse.jetty.webapp.*;
 
 public class WebServer
 {
@@ -93,11 +75,11 @@ public class WebServer
         _ctx.setContextPath("/");
         _ctx.setBaseResource(Resource.newClassPathResource("META-INF/webapp"));        
         
-        _ctx.setConfigurations (new Configuration []
+		_ctx.setConfigurations (new Configuration []
 		{
-        	// This is necessary because Jetty out-of-the-box does not scan
-        	// the classpath of your project in Eclipse, so it doesn't find
-        	// your WebAppInitializer.
+			// This is necessary because Jetty out-of-the-box does not scan
+			// the classpath of your project in Eclipse, so it doesn't find
+			// your WebAppInitializer.
 			new AnnotationConfiguration() 
 			{
 				@Override
@@ -144,7 +126,7 @@ public class WebServer
 		                        if (aContext.isServerClass(name)) return false;
 		                        return false;
 		                    }
-	
+		
 		                    public boolean shouldOverride (String name)
 		                    {
 		                        //looking at webapp classpath, found already-parsed class of same name - did it come from system or duplicate in webapp?
@@ -159,11 +141,11 @@ public class WebServer
 						else
 							aParser.parse(_resource.getURI(), _resolver);
 					}
-	                
-	                //TODO - where to set the annotations discovered from WEB-INF/classes?    
-	                List<DiscoveredAnnotation> _annotations = new ArrayList<DiscoveredAnnotation>();
-	                gatherAnnotations(_annotations, aParser.getAnnotationHandlers());	                
-	                aContext.getMetaData().addDiscoveredAnnotations (_annotations);
+		            
+		            //TODO - where to set the annotations discovered from WEB-INF/classes?    
+		            List<DiscoveredAnnotation> _annotations = new ArrayList<DiscoveredAnnotation>();
+		            gatherAnnotations(_annotations, aParser.getAnnotationHandlers());	                
+		            aContext.getMetaData().addDiscoveredAnnotations (_annotations);
 				}
 				
 				private List<Resource> getResources(ClassLoader aLoader) throws IOException
@@ -174,7 +156,7 @@ public class WebServer
 		                URL[] _urls = ((URLClassLoader)aLoader).getURLs();		                
 		                for (URL _url : _urls)
 		                	_result.add(Resource.newResource(_url));
-    
+		
 		                return _result;
 		            }
 					return Collections.emptyList();					
