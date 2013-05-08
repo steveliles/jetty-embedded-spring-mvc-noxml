@@ -35,8 +35,7 @@ public class WebAppInitializer implements WebApplicationInitializer {
     }
 
     private void registerJspServlet(ServletContext aContext) {
-        ServletRegistration.Dynamic _dispatcher =
-                aContext.addServlet(JSP_SERVLET_NAME, new JspServlet());
+        ServletRegistration.Dynamic _dispatcher = aContext.addServlet(JSP_SERVLET_NAME, new JspServlet());
         _dispatcher.setLoadOnStartup(1);
         _dispatcher.addMapping("*.jsp");
     }

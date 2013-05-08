@@ -106,7 +106,7 @@ public abstract class AbstractWebServer {
 
     private HandlerCollection createHandlers() {
         WebAppContext ctx = new WebAppContext();
-        ctx.setContextPath("/");
+        ctx.setContextPath("/api");
         ctx.setBaseResource(Resource.newClassPathResource("META-INF/webapp"));
 
         ctx.setConfigurations(new Configuration[]{
