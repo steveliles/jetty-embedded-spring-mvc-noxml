@@ -12,12 +12,8 @@ import org.springframework.web.servlet.view.UrlBasedViewResolver;
 
 @EnableWebMvc
 @Configuration
-@ComponentScan(basePackages = {"com.sjl"})
+@ComponentScan(basePackages = {"com"})
 public class WebModule extends WebMvcConfigurerAdapter {
-//    @Override
-//    public void addViewControllers(ViewControllerRegistry aRegistry) {
-//        aRegistry.addViewController("/").setViewName("index");
-//    }
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry aRegistry) {

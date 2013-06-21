@@ -1,8 +1,6 @@
 package com.sjl;
 
-import com.google.common.base.Optional;
 import com.sjl.config.ServerConfig;
-import com.sjl.util.Duration;
 import org.eclipse.jetty.annotations.*;
 import org.eclipse.jetty.annotations.AnnotationParser.DiscoverableAnnotationHandler;
 import org.eclipse.jetty.server.*;
@@ -48,6 +46,7 @@ public abstract class AbstractWebServer {
 
         server.setStopAtShutdown(true);
         server.setGracefulShutdown((int) config.getShutdownGracePeriod().toMilliseconds());
+        System.out.println("start server, http://" + config.getIp() + ":" + config.getPort());
 
         server.start();
         server.join();
@@ -92,11 +91,10 @@ public abstract class AbstractWebServer {
         connector.setResponseBufferSize((int) config.getResponseBufferSize().toBytes());
         connector.setResponseHeaderSize((int) config.getResponseHeaderBufferSize().toBytes());
         connector.setReuseAddress(config.isReuseAddress());
-        final Optional<Duration> lingerTime = config.getSoLingerTime();
-
-        if (lingerTime.isPresent()) {
-            connector.setSoLingerTime((int) lingerTime.get().toMilliseconds());
-        }
+//        final Optional<Duration> lingerTime = config.getSoLingerTime();//对性能有影响
+//        if (lingerTime.isPresent()) {
+//            connector.setSoLingerTime((int) lingerTime.get().toMilliseconds());
+//        }
 
         connector.setName("main");
 
@@ -106,7 +104,7 @@ public abstract class AbstractWebServer {
 
     private HandlerCollection createHandlers() {
         WebAppContext ctx = new WebAppContext();
-        ctx.setContextPath("/api");
+        ctx.setContextPath("/");
         ctx.setBaseResource(Resource.newClassPathResource("META-INF/webapp"));
 
         ctx.setConfigurations(new Configuration[]{

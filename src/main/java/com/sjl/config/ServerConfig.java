@@ -56,7 +56,7 @@ public class ServerConfig {
         this.port = port;
         this.minThreads = minThreads;
         this.maxThreads = maxThreads;
-        this.logDir = System.getProperty("server_log_home", String.format("./var/logs/$s/", name));
+        this.logDir = System.getProperty("server_log_home", String.format(".log/", name));
     }
 
     public String getName() {

@@ -1,4 +1,4 @@
-package com.sjl.action;
+package com.demo;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,23 +9,21 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.Date;
 
 @Controller
-public class Home {
+public class DemoAction {
 
-    @RequestMapping("/home")
-    public ModelAndView home() {
-        return new ModelAndView("abc/abc");
-    }
 
-    @RequestMapping("/test.do")
+    @RequestMapping("/index")
     public ModelAndView test(@RequestParam String key) {
 
         ModelAndView view = new ModelAndView("_JSON_DATA");
+
+        key = key == null ? "sjk" : key;
         view.addObject("data", key + ", " + new Date());
 
         return view;
     }
 
-    @RequestMapping("/test11")
+    @RequestMapping("/test")
     @ResponseBody
     public String test11(@RequestParam String key) {
         return "=====" + new Date();

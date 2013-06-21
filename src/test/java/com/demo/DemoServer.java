@@ -1,12 +1,13 @@
-package com.sjl;
+package com.demo;
 
+import com.sjl.AbstractWebServer;
 import com.sjl.config.ServerConfig;
 import com.sjl.util.IpUtil;
 
-public class Demo extends AbstractWebServer {
+public class DemoServer extends AbstractWebServer {
 
     public static void main(String... args) throws Exception {
-        final AbstractWebServer server = new Demo();
+        final AbstractWebServer server = new DemoServer();
         Runtime.getRuntime().addShutdownHook(new Thread() {
             @Override
             public void run() {
